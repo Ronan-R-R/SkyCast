@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast | Weather Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- API Key Modal -->
+    <div id="apiKeyModal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fa-solid fa-lock"></i> API Setup</h2>
+            <p>Please enter your OpenWeatherMap API Key.</p>
+            <input type="text" id="userApiKey" placeholder="Paste your API Key here">
+            <button id="saveApiKeyBtn">Save & Start</button>
+            <a href="https://home.openweathermap.org/users/sign_up" target="_blank" class="link">Get a free key here</a>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cloud-bolt"></i> SkyCast
+            </div>
+            <div class="nav-items">
+                <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</div>
+                <div class="nav-item" onclick="clearKey()"><i class="fa-solid fa-key"></i> Reset Key</div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <header>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="cityInput" placeholder="Search city">
+                    <button id="searchBtn">Search</button>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Main Weather Card -->
+                <div class="weather-card main-card">
+                    <div class="card-header">
+                        <h2 id="cityName">--</h2>
+                        <span id="dateDisplay">--</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="temp-container">
+                            <img id="weatherIcon" src="" alt="" class="weather-icon">
+                            <h1 id="temperature">--°</h1>
+                        </div>
+                        <div class="condition" id="weatherDescription">--</div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stat">
+                            <i class="fa-solid fa-wind"></i>
+                            <span id="windSpeed">-- km/h</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fa-solid fa-droplet"></i>
+                            <span id="humidity">--%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Card -->
+                <div class="weather-card map-card">
+                    <h3>Select Location on Map</h3>
+                    <div id="map"></div>
+                </div>
+
+                <!-- Highlights -->
+                <div class="highlights-container">
+                    <div class="highlight-card">
+                        <h4>Feels Like</h4>
+                        <h3 id="feelsLike">--°</h3>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Visibility</h4>
+                        <h3 id="visibility">-- km</h3>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Pressure</h4>
+                        <h3 id="pressure">-- hPa</h3>
+                    </div>
+                </div>
+
+                <!-- Forecast -->
+                <div class="forecast-section">
+                    <h3>5-Day Forecast</h3>
+                    <div class="forecast-container" id="forecastContainer"></div>
+                </div>
+            </div>
+
+            <!-- Footer Added Here -->
+            <footer>
+                <p>&copy; 2026 Ronan Roberts. All Rights Reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="script.js"></script>
+</body>
+</html>
