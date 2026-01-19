@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SkyCast | Weather Dashboard</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1163/1163661.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,8 +31,8 @@
                 <i class="fa-solid fa-cloud-bolt"></i> SkyCast
             </div>
             <div class="nav-items">
-                <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Dashboard</div>
-                <div class="nav-item" onclick="clearKey()"><i class="fa-solid fa-key"></i> Reset Key</div>
+                <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></div>
+                <div class="nav-item" onclick="clearKey()"><i class="fa-solid fa-key"></i> <span>Reset Key</span></div>
             </div>
         </nav>
 
@@ -73,7 +74,7 @@
 
                 <!-- Map Card -->
                 <div class="weather-card map-card">
-                    <h3>Select Location on Map</h3>
+                    <h3>Select Location</h3>
                     <div id="map"></div>
                 </div>
 
@@ -100,7 +101,7 @@
                 </div>
             </div>
 
-            <!-- Footer Added Here -->
+            <!-- Footer -->
             <footer>
                 <p>&copy; 2026 Ronan Roberts. All Rights Reserved.</p>
             </footer>

@@ -48,55 +48,248 @@ body {
     color: var(--text-primary);
     transition: all 0.5s ease;
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Desktop default: no body scroll */
 }
 
-/* App Layout */
-.app-container { display: flex; height: 100vh; }
-.sidebar { width: 250px; background: var(--bg-sidebar); padding: 20px; display: flex; flex-direction: column; gap: 40px; box-shadow: var(--shadow); z-index: 10; transition: background 0.5s; }
-main { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 30px; }
+/* --- App Layout --- */
+.app-container { 
+    display: flex; 
+    height: 100vh; 
+    width: 100%;
+}
+
+/* Sidebar (Desktop) */
+.sidebar { 
+    width: 250px; 
+    min-width: 250px;
+    background: var(--bg-sidebar); 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 40px; 
+    box-shadow: var(--shadow); 
+    z-index: 100; 
+    transition: background 0.5s; 
+}
+
+/* Main Content Area */
+main { 
+    flex: 1; 
+    padding: 30px; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 25px; 
+    position: relative;
+}
 
 /* Components */
 .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 10px; }
-.nav-item { padding: 12px 20px; border-radius: 10px; cursor: pointer; color: var(--text-secondary); display: flex; gap: 10px; align-items: center; }
+.nav-item { padding: 12px 20px; border-radius: 10px; cursor: pointer; color: var(--text-secondary); display: flex; gap: 10px; align-items: center; transition: 0.3s; }
+.nav-item:hover { background: rgba(0,0,0,0.05); }
 .nav-item.active { background: var(--accent); color: white; }
 
-.search-bar { background: var(--card-bg); padding: 10px 20px; border-radius: 30px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); width: 400px; transition: background 0.5s; }
-.search-bar input { border: none; outline: none; background: transparent; flex: 1; color: var(--text-primary); }
-#searchBtn { background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: background 0.5s; }
+/* Search Bar - Responsive Width */
+.search-bar { 
+    background: var(--card-bg); 
+    padding: 10px 20px; 
+    border-radius: 30px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    box-shadow: var(--shadow); 
+    width: 100%; 
+    max-width: 400px; /* Limits width on large screens */
+    transition: background 0.5s; 
+}
+.search-bar input { border: none; outline: none; background: transparent; flex: 1; color: var(--text-primary); font-size: 1rem; }
+#searchBtn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; transition: background 0.5s; font-weight: 600; }
 
-/* Dashboard */
-.dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-.weather-card { background: var(--card-bg); border-radius: 20px; padding: 25px; box-shadow: var(--shadow); transition: background 0.5s; }
+/* Dashboard Grid System */
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: 2fr 1fr; /* 2/3 Weather, 1/3 Map */
+    gap: 20px; 
+}
 
-.main-card { grid-row: span 2; background: var(--main-card-grad); color: white; display: flex; flex-direction: column; justify-content: space-between; }
-.temp-container { display: flex; align-items: center; gap: 10px; }
-#temperature { font-size: 5rem; font-weight: 700; }
-.weather-icon { width: 80px; height: 80px; }
+.weather-card { 
+    background: var(--card-bg); 
+    border-radius: 20px; 
+    padding: 25px; 
+    box-shadow: var(--shadow); 
+    transition: background 0.5s; 
+}
 
-.map-card { grid-row: span 2; display: flex; flex-direction: column; }
-#map { flex: 1; border-radius: 12px; min-height: 250px; margin-top: 15px; cursor: crosshair; }
+/* Main Weather Card */
+.main-card { 
+    grid-row: span 2; 
+    background: var(--main-card-grad); 
+    color: white; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    min-height: 300px;
+}
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.card-header h2 { font-size: 1.8rem; line-height: 1.2; }
+.temp-container { display: flex; align-items: center; gap: 15px; margin: 20px 0; }
+/* Clamp font size: Minimum 3rem, Ideal 5vw, Max 5rem */
+#temperature { font-size: clamp(3.5rem, 5vw, 6rem); font-weight: 700; line-height: 1; }
+.weather-icon { width: 80px; height: 80px; filter: drop-shadow(0 0 10px rgba(0,0,0,0.2)); }
+.card-footer { display: flex; gap: 30px; margin-top: auto; }
+.stat { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; }
 
-.highlights-container { grid-column: span 2; display: flex; gap: 20px; }
-.highlight-card { flex: 1; background: var(--card-bg); padding: 20px; border-radius: 16px; box-shadow: var(--shadow); text-align: center; }
+/* Map Card */
+.map-card { 
+    grid-row: span 2; 
+    display: flex; 
+    flex-direction: column; 
+}
+#map { 
+    flex: 1; 
+    border-radius: 12px; 
+    min-height: 250px; 
+    margin-top: 15px; 
+    cursor: crosshair; 
+    z-index: 1; /* Lower z-index so nav doesn't overlap weirdly */
+}
 
-.forecast-container { display: flex; gap: 15px; margin-top: 15px; overflow-x: auto; padding-bottom: 10px; }
-.forecast-item { background: var(--card-bg); padding: 15px; border-radius: 16px; min-width: 120px; text-align: center; box-shadow: var(--shadow); }
+/* Highlights Grid */
+.highlights-container { 
+    grid-column: span 2; 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* 3 Equal columns */
+    gap: 20px; 
+}
+.highlight-card { 
+    background: var(--card-bg); 
+    padding: 20px; 
+    border-radius: 16px; 
+    box-shadow: var(--shadow); 
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.highlight-card h4 { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 5px; }
+.highlight-card h3 { font-size: 1.5rem; }
+
+/* Forecast Scroll */
+.forecast-section { grid-column: span 2; }
+.forecast-container { 
+    display: flex; 
+    gap: 15px; 
+    margin-top: 15px; 
+    overflow-x: auto; 
+    padding-bottom: 10px; 
+    /* Hide scrollbar for cleaner look */
+    scrollbar-width: thin;
+}
+.forecast-item { 
+    background: var(--card-bg); 
+    padding: 15px; 
+    border-radius: 16px; 
+    min-width: 110px; 
+    text-align: center; 
+    box-shadow: var(--shadow); 
+    flex-shrink: 0;
+}
 
 /* Footer */
-footer { text-align: center; padding-top: 20px; color: var(--text-secondary); font-size: 0.9rem; margin-top: auto; }
+footer { 
+    text-align: center; 
+    padding: 20px 0; 
+    color: var(--text-secondary); 
+    font-size: 0.85rem; 
+    
+    /* Key change: Pushes footer to the bottom of the flex container */
+    margin-top: auto; 
+}
 
 /* Modal */
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; padding: 20px; }
 .modal.hidden { display: none; }
-.modal-content { background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; color: #1a1a1a; }
+.modal-content { background: white; padding: 30px; border-radius: 16px; width: 100%; max-width: 400px; text-align: center; color: #1a1a1a; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
 .modal-content input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; }
-.modal-content button { background: #0ea5e9; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; width: 100%; }
+.modal-content button { background: #0ea5e9; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1rem; }
 
+/* --- RESPONSIVE MEDIA QUERIES --- */
+
+/* Tablet (Portrait) and Mobile Devices */
 @media (max-width: 900px) {
-    .app-container { flex-direction: column; height: auto; overflow: visible; }
-    .sidebar { width: 100%; flex-direction: row; justify-content: space-between; }
-    .dashboard-grid { grid-template-columns: 1fr; }
-    .highlights-container { flex-direction: column; }
-    .search-bar { width: 100%; }
+    body {
+        height: auto;
+        overflow-y: auto; /* Enable body scroll on mobile */
+    }
+
+    .app-container { 
+        flex-direction: column; 
+        height: auto; 
+    }
+
+    /* Transform Sidebar into Top Navbar */
+    .sidebar { 
+        width: 100%; 
+        min-width: 0;
+        flex-direction: row; 
+        align-items: center; 
+        justify-content: space-between; 
+        padding: 15px 20px;
+        position: sticky;
+        top: 0;
+    }
+    
+    .logo { font-size: 1.2rem; }
+    .nav-items { display: flex; gap: 15px; }
+    .nav-item { padding: 8px 12px; font-size: 0.9rem; }
+    .nav-item i { margin-right: 0; }
+    /* Hide text "Reset Key" on very small screens, keep icon */
+    @media (max-width: 400px) {
+        .nav-item span { display: none; }
+    }
+
+    main { padding: 20px; gap: 20px; }
+
+    /* Dashboard becomes 1 column */
+    .dashboard-grid { 
+        grid-template-columns: 1fr; 
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Reset grid spans */
+    .main-card, .map-card, .highlights-container, .forecast-section {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    /* Map Height Adjustment */
+    .map-card { min-height: 300px; }
+    #map { min-height: 250px; }
+
+    /* Search Bar Full Width */
+    .search-bar { max-width: 100%; }
+}
+
+/* Small Mobile Devices (Phones) */
+@media (max-width: 600px) {
+    .temp-container { flex-direction: column; align-items: flex-start; gap: 0; }
+    .weather-icon { width: 60px; height: 60px; margin-bottom: 10px; }
+    
+    /* Stack Highlights on tiny screens */
+    .highlights-container { 
+        grid-template-columns: 1fr; /* 1 column stacked */
+    }
+    
+    .highlight-card {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding: 15px 20px;
+    }
+    .highlight-card h3 { font-size: 1.2rem; margin: 0; }
+    .highlight-card h4 { margin: 0; }
+
+    .modal-content { padding: 20px; }
 }

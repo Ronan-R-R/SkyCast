@@ -186,6 +186,10 @@ function updateTheme(condition, timestamp, timezoneOffset) {
         // Default (Clear/Sunny)
         body.classList.remove('theme-night', 'theme-rainy', 'theme-cloudy');
     }
+// Fix Leaflet map sizing on resize (Mobile/Desktop switch)
+window.addEventListener('resize', () => {
+    if(map) map.invalidateSize();
+});
 }
 
 // Start App
