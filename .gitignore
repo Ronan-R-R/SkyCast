@@ -1,0 +1,19 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE and Editor Configuration
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local environment files (if added later)
+.env
+.env.local
